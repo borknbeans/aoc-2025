@@ -30,8 +30,50 @@ fn main() -> io::Result<()> {
     Ok(())
 }
 
-fn part_1(lines: &[String]) -> io::Result<i32> {
-    Ok(0)
+fn part_1(lines: &[String]) -> io::Result<i64> {
+    let mut grid = Vec::new();
+    let mut operations = Vec::new();
+
+    for line in lines {
+        let nums = line.split(" ").filter_map(|s| i64::from_str(s).ok()).collect::<Vec<i64>>();
+        if nums.len() == 0 {
+            operations = line.split(" ").filter(|s| !s.is_empty()).collect::<Vec<&str>>();
+        }
+        grid.push(nums);
+    }
+
+    let mut result = 0;
+    for i in 0..grid.len() {
+        let op = operations[i];
+        let mut r = 0;
+        if op == "*" {
+            r = 1;
+        }
+
+        for j in 0..grid[i].len() {
+            let v = grid[i][j];
+            print!("{} ", v);
+            if op == "*" {
+                r *= v;
+            } else if op == "+" {
+                r += v;
+            }
+        }
+        // if op == "*" {
+        //     r = col.iter().product();
+        // } else if op == "+" {
+        //     r = col.iter().sum();
+        // }
+
+        // for c in col {
+        //     print!("{} ", c);
+        // }
+        println!("");
+        println!("{}", r);
+        result += r;
+    }
+
+    Ok(result)
 }
 
 fn part_2(lines: &[String]) -> io::Result<i32> {
