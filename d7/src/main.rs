@@ -70,10 +70,9 @@ fn part_1(lines: &[String]) -> io::Result<i64> {
 fn part_2(lines: &[String]) -> io::Result<i64> {
     let mut grid: Vec<Vec<String>> = Vec::new();
 
-    for line in lines {
-        let c = line.chars().map(|c| c.to_string()).collect::<Vec<String>>();
-        grid.push(c);
-    }
+    lines.iter().for_each(|l| {
+        grid.push(l.chars().map(|c| c.to_string()).collect::<Vec<String>>())
+    });
 
     let mut map: HashMap<usize, i64> = HashMap::new();
     for i in (0..grid.len() - 1).rev().step_by(2) { // -1 because the last row is just dots and step by 2 because every other is just dots
